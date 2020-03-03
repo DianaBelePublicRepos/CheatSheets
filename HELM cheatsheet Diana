@@ -1,0 +1,56 @@
+
+
+HELM cheatsheet
+
+
+helm repo update
+
+HELM HUB
+
+https://hub.helm.sh
+
+
+
+
+
+
+
+
+
+------ Download Chart Command -----
+
+helm fetch stable/prometheus 
+
+helm list
+
+------ Super Stable Version -----
+helm rollback prometheus 2
+
+
+------ Status Command -----
+
+helm status prometheus - gets you all the statuses and resources for the release
+
+
+	==> v1/PersistentVolumeClaim
+	NAME                     AGE
+	prometheus-alertmanager  6m24s
+	prometheus-server        6m24s
+
+
+
+helm install --name prometheus stable/prometheus
+
+---- Verify status of prometheus server pod -----
+
+
+
+kubectl get pod -l app=prometheus,component=server -o jsonpath='{.items[].status.conditions[].message}'
+
+------- Upgrade ------
+helm upgrade -f /Users/dianabele/Documents/Values/values.yaml prometheus stable/prometheus
+
+
+------- Delete ------
+helm delete prometheus --purge
+

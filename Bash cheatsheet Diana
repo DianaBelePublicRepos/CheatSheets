@@ -1,0 +1,5 @@
+Bash cheatsheet
+
+Version of Linux
+cat /etc/os-release
+

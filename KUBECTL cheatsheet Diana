@@ -1,0 +1,55 @@
+
+
+KUBECTL cheatsheet ---> https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+
+
+------> Getting into a prometheus server container 
+
+kubectl exec -it prometheus-server-675c9d564f-n8sfm --container prometheus-server sh
+
+
+
+
+kubectl get all -n <namespace>
+
+kubectl get pvc
+kubectl get pods
+kubectl get services
+kubectl delete pod <pod_name>
+top memory consumption - kubectl top pod --namespace=<namespace_name>
+kubectl config set-context --current --namespace=<namespace>
+
+
+Kubernetes DASHBOARD
+
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
+
+
+Kubernetes Storage
+kubectl describe <specific pv/pvc/sc> 
+kubectl get sc --> Storage Classes
+kubectl get pv
+kubectl get pvc
+
+
+
+PROMETHEUS helpful stuff
+
+
+https://boxboat.com/2019/08/08/monitoring-kubernetes-with-prometheus/
+export POD_NAME=$(kubectl get pods --namespace prometheus -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace prometheus port-forward $POD_NAME 9090
+http://localhost:9090/graph
+
+
+ALERT MANAGER
+export POD_NAME=$(kubectl get pods --namespace prometheus -l "app=prometheus,component=alertmanager" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace prometheus port-forward $POD_NAME 9093
+http://localhost:9093
+
+
+GRAFANA Load Balancer
+a4b8bb2ce4d9c11eaacf30aad35b2f16-1337494425.eu-west-2.elb.amazonaws.com
+
